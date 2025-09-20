@@ -164,7 +164,7 @@ func TestSign_invalidOptions(t *testing.T) {
 }
 
 func TestSign_copyHeaders(t *testing.T) {
-	wantZ := "z=To:Suzie=20Q=20=3C\r\n |Subject:Is=20dinner=20;\r\n"
+	wantZ := "z=To:Suzie=20Q=20<suzie@shopping.example.net>\r\n |Subject:Is=20dinner=20ready?;"
 	r := strings.NewReader(mailString)
 	options := &SignOptions{
 		Domain:         "example.org",

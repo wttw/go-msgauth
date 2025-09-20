@@ -180,15 +180,15 @@ func qpHeaderValue(p []byte) string {
 	var n int
 	for i, b := range p {
 		switch {
-		case b >= '!' && b <= ':':
+		case b >= '!' && b <= ':': // %x21-3A
 			continue
-		case b == '=':
+		case b == '<': // %x3c
 			continue
-		case b >= '>' && b <= '{':
+		case b >= '>' && b <= '{': // %x3e - %x7b
 			continue
-		case b == '}':
+		case b == '}': // %x7d
 			continue
-		case b == '~':
+		case b == '~': // %x7e
 			continue
 		}
 		if i > n {
@@ -200,6 +200,7 @@ func qpHeaderValue(p []byte) string {
 		w.WriteByte(upperhex[b&0x0f])
 		n++
 	}
+	w.Write(p[n:])
 	return w.String()
 }
 
